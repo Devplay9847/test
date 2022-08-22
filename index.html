@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- METAS -->
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- MODIFY -->
+    <meta name="title" content="OWASP Risk Assessment Calculator" />
+    <meta name="description" content="New version 2021 of OWASP Risk Assessment Calculator" />
+    <meta name="author" content="Ashish Pandey" />
+    <title>Risk Assessment Calculator v2021</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <!-- MAIN -->
+  <body>
+    <main>
+      <section>
+        <h1>OWASP Risk Assessment Calculator</h1>
+       
+        </div>
+      </section>
+
+      <!-- FIRST -->
+      <div class="row">
+        <!-- THREAT AGENT FACTORS -->
+        <section>
+          <h5 class="border-bottom" title="The first set of factors are related to the threat agent involved. The goal here is to estimate the likelihood of a successful attack by this group of threat agents. Use the worst-case threat agent.">Threat Agent Factors</h5>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How technically skilled is this group of threat agents?">Skill level</div>
+            <div class="col-8">
+              <select class="form-control" id="sl" name="sl" onchange="calculate()">
+                <option value="1">No Selection(1)</option>
+                <option value="3">No technical skill (3)</option>
+                <option value="5">Some technical skill (5)</option>
+                <option value="6">Advanced Technical Skills (6)</option>
+                <option value="9">Not Applicable N/A (9)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="What resources and opportunities are required for this group of threat agents to find and exploit this vulnerability?">Opportunity</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="o" name="o" onchange="calculate()">
+                <option value="0">No Selection (1)</option>
+                <option value="4">Exploit Available (2)</option>
+                <option value="7">Access Complexity (3)</option>
+                <option value="9">Not Applicable N/A (5)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How large is this group of threat agents?">Size</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="s" name="s" onchange="calculate()">
+                <option value="2">Individual (1)</option>
+                <option value="4">0-10 (2)</option>
+                <option value="5">10-100 (3)</option>
+                <option value="6">More than 100 (4)</option>
+                <option value="9">No Selection (5)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- TECHNICAL IMPACT FACTORS -->
+        <section>
+          <h5 class="border-bottom" title="Technical impact can be broken down into factors aligned with the traditional security areas of concern: confidentiality, integrity, availability, and accountability. The goal is to estimate the magnitude of the impact on the system if the vulnerability were to be exploited. ">Technical Impact Factors</h5>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How much data could be disclosed and how sensitive is it?">Loss of confidentiality</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="lc" name="lc" onchange="calculate()">
+                <option value="2">No Selection (1)</option>
+                <option value="6">Minimal non-sensitive data disclose (2)</option>
+                <option value="6">Minimal critical disclosed (3)</option>
+                <option value="7">extensive critical data disclosed (4)</option>
+                <option value="9">all data disclosed (5)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How much data could be corrupted and how damaged is it?">Loss of integrity</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="li" name="li" onchange="calculate()">
+                <option value="1">No Selection (1)</option>
+                <option value="3">Minimal slightly corrupt data (2)</option>
+                <option value="5">Minimal seriously corrupt data (3)</option>
+                <option value="7">Extensive slightly corrupt data (4)</option>
+                <option value="9">All data totally corrupt (5)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How much service could be lost and how vital is it?">Loss of availability</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="lav" name="lav" onchange="calculate()">
+                <option value="1">No Selection (1)</option>
+                <option value="5">Extensive secondary services interrupted (2)</option>
+                <option value="5">Minimal primary services interrupted  (3)</option>
+                <option value="7">Extensive services interrupted (4)</option>
+                <option value="9">All services completely lost (5)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- SECOND -->
+      <div class="row">
+        <!-- VULNERABILITY FACTORS -->
+        <section>
+          <h5 class="border-bottom" title="The next set of factors are related to the vulnerability involved. The goal here is to estimate the likelihood of the particular vulnerability involved being discovered and exploited. Assume the threat agent selected above.">Vulnerability Factors</h5>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How easy is it for this group of threat agents to discover this vulnerability?">Ease of discovery</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="ed" name="ed" onchange="calculate()">
+                <option value="1">No Selection (1)</option>
+                <option value="3">Public IP (2)</option>
+                <option value="7">Domain (3)</option>
+                <option value="9">Nated (4)</option>
+                <option value="9">Not Applicable N/A (5)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How easy is it for this group of threat agents to actually exploit this vulnerability?">Ease of exploit</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="ee" name="ee" onchange="calculate()">
+                <option value="1">No Selection (1)</option>
+                <option value="3">Root Access (2)</option>
+                <option value="5">Remote Access (3)</option>
+                <option value="9">Local Access (4)</option>
+                <option value="9">Not Applicable N/A (5)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How well known is this vulnerability to this group of threat agents?">Awareness</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="a" name="a" onchange="calculate()">
+                <option value="1">Unknown (1)</option>
+                <option value="4">Hidden (2)</option>
+                <option value="6">Exploit Available (3)</option>
+                <option value="9">Public knowledge (4)</option>
+                <<option value="9">Not Applicable N/A (5)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- BUSINESS IMPACT FACTORS -->
+        <section>
+          <h5 class="border-bottom" title="The business impact stems from the technical impact, but requires a deep understanding of what is important to the company running the application. In general, you should be aiming to support your risks with business impact, particularly if your audience is executive level. The business risk is what justifies investment in fixing security problems.">Business Impact Factors</h5>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How much financial damage will result from an exploit?">Financial damage</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="fd" name="fd" onchange="calculate()">
+                <option value="1">No Selection (1)</option>
+                <option value="1">Less than the cost to fix the vulnerability (2)</option>
+                <option value="3">Minor effect on annual profit (3)</option>
+                <option value="7">Significant effect on annual profit (4)</option>
+                <option value="9">Bankruptcy (5)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="Would an exploit result in reputation damage that would harm the business?">Reputation damage</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="rd" name="rd" onchange="calculate()">
+                <option value="1">No Selection (1)</option>
+                <option value="1">Minimal damage (2)</option>
+                <option value="4">Loss of major accounts (3)</option>
+                <option value="5">Loss of goodwill (4)</option>
+                <option value="9">Brand damage (5)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="h6 nomargin col-4 d-flex align-items-center" title="How much personally identifiable information could be disclosed?">Privacy violation</div>
+            <div class="col-8">
+              <select class="form-control" aria-label=".form-select-sm example" id="pv" name="pv" onchange="calculate()">
+                <option value="1">No Selection (1)</option>
+                <option value="3">One individual (2)</option>
+                <option value="5">One Department (3)</option>
+                <option value="7">Hundreds of people (4)</option>
+                <option value="9">More than Hundreds of people(<100) (5 )</option>
+              </select>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- THIRD -->
+      <div class="row">
+        <!-- LIKELIHOOD SCORE -->
+        <section>
+          <h5 class="border-bottom">Likelihood score</h5>
+          <h6 class="LS nomargin">0</h6>
+        </section>
+
+        <!-- IMPACT SCORE -->
+        <section>
+          <h5 class="border-bottom">Impact score</h5>
+          <h6 class="IS nomargin">0</h6>
+        </section>
+      </div>
+      <!-- RISK SCORE -->
+      <section>
+        <h5 class="border-bottom">RISK SCORE = Likelihood score*Impact score</h5>
+        <h6 class="IS nomargin">0</h6>
+      </section>
+    </div>
+
+      <!-- CREDITS -->
+      <section>
+          2022 OWASP Risk Assessment Calculator | Developed by <span>Ashish Pandey</span></a> 
+      </section>
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">How is Severity Risk caculated?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <!-- LIKELIHOOD AND IMPACT LEVELS -->
+              <section>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" colspan="2">Likelihood and Impact Levels</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>0 to < 3</td>
+                      <td class="classNote">LOW</td>
+                    </tr>
+                    <tr>
+                      <td>3 to < 6</td>
+                      <td class="classMedium">MEDIUM</td>
+                    </tr>
+                    <tr>
+                      <td>6 to 9</td>
+                      <td class="classHigh">HIGH</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <!-- OVERALL RISK SEVERITY = LIKELIHOOD X IMPACT -->
+              <section>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" colspan="5">Overall Risk Severity = Likelihood x Impact</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="1" rowspan="4" style="vertical-align: middle; font-weight: bold">Impact</td>
+                      <td>HIGH</td>
+                      <td class="classMedium">Medium</td>
+                      <td class="classHigh">High</td>
+                      <td class="classCritical">Critical</td>
+                    </tr>
+                    <tr>
+                      <td>MEDIUM</td>
+                      <td class="classLow">Low</td>
+                      <td class="classMedium">Medium</td>
+                      <td class="classHigh">High</td>
+                    </tr>
+                    <tr>
+                      <td>LOW</td>
+                      <td class="classNote">Note</td>
+                      <td class="classLow">Low</td>
+                      <td class="classMedium">Medium</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>LOW</td>
+                      <td>MEDIUM</td>
+                      <td>HIGH</td>
+                    </tr>
+                  </tbody>
+                  <thead>
+                    <tr>
+                      <th scope="col" colspan="1"></th>
+                      <th scope="col" colspan="4">Likelihood</th>
+                    </tr>
+                  </thead>
+                </table>
+              </section>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
